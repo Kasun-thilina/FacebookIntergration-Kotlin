@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
     val URL:String="https://dl.dropboxusercontent.com/s/6nt7fkdt7ck0lue/hotels.json"
     lateinit var listData:MutableList<Data>
-    lateinit var recyclerView: RecyclerViewAdapter
+    lateinit var recyclerView: RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
