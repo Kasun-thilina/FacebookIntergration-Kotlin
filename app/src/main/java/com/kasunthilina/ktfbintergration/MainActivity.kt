@@ -1,5 +1,6 @@
 package com.kasunthilina.ktfbintergration
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -100,7 +101,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupRecyclerView(listData: List<Data>) {
 
-        val myAdapter = RecyclerViewAdapter(baseContext,listData)
+        val myAdapter = RecyclerViewAdapter(this,listData)
         recyclerView.setLayoutManager(LinearLayoutManager(this))
         recyclerView.setAdapter(myAdapter)
     }

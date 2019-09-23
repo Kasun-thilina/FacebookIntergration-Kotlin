@@ -11,17 +11,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.request.RequestOptions
 
 
-class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>{
-    lateinit var options:RequestOptions
-    lateinit var mContext: Context
-    lateinit var mData: List<Data>
-
-    fun RecyclerViewAdapter(mContext: Context, mData: List<Data>) {
+class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
+    var options:RequestOptions
+    var mContext: Context
+    var mData: List<Data>
+    constructor(mContext: Context, mData: List<Data>)
+    {
         this.mContext = mContext
         this.mData = mData
 
         options = RequestOptions().centerCrop().timeout(7500)
     }
+   /* fun RecyclerViewAdapter(mContext: Context, mData: List<Data>) {
+        this.mContext = mContext
+        this.mData = mData
+
+        options = RequestOptions().centerCrop().timeout(7500)
+    }*/
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
