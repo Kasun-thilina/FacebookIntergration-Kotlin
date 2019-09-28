@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -19,8 +20,13 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.facebook.FacebookSdk
 import com.facebook.login.LoginManager
+import com.kasunthilina.ktfbintergration.Retrofit.FetchData
+import com.kasunthilina.ktfbintergration.Retrofit.ListDTO
+import com.kasunthilina.ktfbintergration.Retrofit.RetrofitClientInstance
 import org.json.JSONException
 import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
 
 class MainActivity : AppCompatActivity() {
 
@@ -48,6 +54,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView=findViewById(R.id.recyclerView)
         val btnLogout:Button=findViewById(R.id.btnLogOut)
         listData=ArrayList()
+        parseJSONbyRetrofit()
         parseJSON()
 
         btnLogout.setOnClickListener{
@@ -56,6 +63,23 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this,LoginActivity::class.java))
         }
 
+    }
+
+    private fun parseJSONbyRetrofit() {
+        val service = RetrofitClientInstance.retrofitInstance?.create(FetchData::class.java)
+        val call=service?.getAllData()
+        call?.enqueue(object : Callback<ListDTO>{
+            override fun onFailure(call: Call<ListDTO>, t: Throwable) {
+                Toast.makeText(this@MainActivity,"Error",Toast.LENGTH_LONG).show()
+            }
+
+            override fun onResponse(call: Call<ListDTO>, response: retrofit2.Response<ListDTO>) {
+                val body=response?.body()
+                val data=body?.data
+                Log.d("#####Retroft","Data: $data")
+            }
+
+        })
     }
 
     private fun parseJSON() {
