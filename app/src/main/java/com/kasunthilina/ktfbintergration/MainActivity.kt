@@ -25,6 +25,7 @@ import com.kasunthilina.ktfbintergration.Retrofit.DataModelDTO
 import com.kasunthilina.ktfbintergration.Retrofit.FetchData
 import com.kasunthilina.ktfbintergration.Retrofit.ListDTO
 import com.kasunthilina.ktfbintergration.Retrofit.RetrofitClientInstance
+import io.reactivex.disposables.CompositeDisposable
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
@@ -56,6 +57,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView=findViewById(R.id.recyclerView)
         val btnLogout:Button=findViewById(R.id.btnLogOut)
         listData=ArrayList()
+
         parseJSONbyRetrofit()
         parseJSON()
 
@@ -79,13 +81,14 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<ListDTO>, response: retrofit2.Response<ListDTO>) {
                 val body=response?.body()
                 val data=body?.data
+                var length=data!!.size
 
-                for (i in 0 until data!!.size) {
-                    val array = data?.get(i)
-                    var dataKotlin=DataClassKotlin()
-                    dataKotlin.address=""
+                for (i in 0 until length) {
+                  //  val array = data?.get(i).address
+                    val dataKotlin=DataClassKotlin()
+                    dataKotlin.address=data.get(i).address
 
-                    Log.d("#####Retroft","Data: $array")
+                    Log.d("#####Retroft","Data: ${data?.get(i).address}")
                 }
                 //setupRecyclerView(data)
 
