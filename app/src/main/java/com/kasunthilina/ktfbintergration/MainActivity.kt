@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -20,6 +21,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.facebook.FacebookSdk
 import com.facebook.login.LoginManager
+import com.kasunthilina.ktfbintergration.Retrofit.DataModelDTO
 import com.kasunthilina.ktfbintergration.Retrofit.FetchData
 import com.kasunthilina.ktfbintergration.Retrofit.ListDTO
 import com.kasunthilina.ktfbintergration.Retrofit.RetrofitClientInstance
@@ -77,7 +79,16 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<ListDTO>, response: retrofit2.Response<ListDTO>) {
                 val body=response?.body()
                 val data=body?.data
-                Log.d("#####Retroft","Data: $data")
+
+                for (i in 0 until data!!.size) {
+                    val array = data?.get(i)
+                    var dataKotlin=DataClassKotlin()
+                    dataKotlin.address=""
+
+                    Log.d("#####Retroft","Data: $array")
+                }
+                //setupRecyclerView(data)
+
             }
 
         })
@@ -107,6 +118,8 @@ class MainActivity : AppCompatActivity() {
                         data.setPhoneNumber(jsonObject.getString("phoneNumber"))
                         data.setLatitude(jsonObject.getString("latitude"))
                         data.setLongitude(jsonObject.getString("longitude"))
+
+
 
                         data.setImage(image.getString("medium"))
                         val temp = image.getString("medium")

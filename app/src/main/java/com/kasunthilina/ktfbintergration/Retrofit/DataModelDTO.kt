@@ -8,4 +8,6 @@ data class DataModelDTO(var id:Int=0, var title:String, var description:String, 
                         @SerializedName("image") var image:ImageDTO) {
 
 
+
+
 }
