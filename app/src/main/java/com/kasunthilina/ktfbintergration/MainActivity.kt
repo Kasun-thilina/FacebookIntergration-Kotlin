@@ -71,6 +71,7 @@ class MainActivity : AppCompatActivity() {
         call?.enqueue(object : Callback<ListDTO>{
             override fun onFailure(call: Call<ListDTO>, t: Throwable) {
                 Toast.makeText(this@MainActivity,"Error",Toast.LENGTH_LONG).show()
+                Log.d("#####Retroft","Data: $t")
             }
 
             override fun onResponse(call: Call<ListDTO>, response: retrofit2.Response<ListDTO>) {
