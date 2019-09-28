@@ -1,6 +1,9 @@
 package com.kasunthilina.ktfbintergration
 
 import android.content.Context
+import android.content.Intent
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -8,6 +11,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
 
@@ -30,16 +34,33 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
     }*/
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        var view:View
+        var inflater=LayoutInflater.from(mContext)
+        view=inflater.inflate(R.layout.row_item,parent,false)
+
+        return MyViewHolder(view)
     }
 
+
     override fun getItemCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+       return mData.size
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        holder.tvTitle.setText(mData[position].getTitle())
+        holder.tvAddress.setText(mData[position].getAddress())
+        holder.tvPostCode.setText(mData[position].getPostcode())
+        holder.tvPhoneNo.setText(mData[position].getPhoneNumber())
+        //Setting up image using glide library
+        Glide.with(mContext).load(mData[position].getImage()).apply(options)
+            .into(holder.imgThumbnail)
+
+
+      /*  holder.parentLayout.setOnClickListener(View.OnClickListener {
+            val intent=Intent(mContext,Deta)
+        })*/
     }
+
 
 
     class MyViewHolder(@NonNull itemView: View) : RecyclerView.ViewHolder(itemView) {

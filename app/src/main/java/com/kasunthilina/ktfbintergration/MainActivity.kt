@@ -32,19 +32,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val db= Room.databaseBuilder(applicationContext,Database::class.java,
             "user_database").build()
-
+        var userName:String?=""
         Thread{
             db.dbDao().getData().forEach{
                 Log.d("#RoomDB","Name: ${it.userName}")
                 Log.d("#RoomDB","URL: ${it.imageUrl}")
-                var userName:String?=it.userName
+                userName=it.userName
                 var imageURL:String?=it.imageUrl
 
             }
         }.start()
 
         val etUsername:TextView=findViewById(R.id.tvUserNameMain)
-        val recyclerView:RecyclerView=findViewById(R.id.recyclerView)
+        etUsername.text=userName
+        recyclerView=findViewById(R.id.recyclerView)
         val btnLogout:Button=findViewById(R.id.btnLogOut)
         listData=ArrayList()
         parseJSON()
